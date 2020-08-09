@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace LinQ_Peformance
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
+            Test_ConsolidateStockUsingJoin();
+            Test_ConsolidateStockUsingDictionary();
         }
 
         public static IEnumerable<Item> GetItemsStock()
@@ -25,7 +27,7 @@ namespace LinQ_Peformance
             }
         }
 
-        public IEnumerable<Item> ConsolidateStockUsingJoin(List<Item> stock1, List<Item> stock2)
+        public static IEnumerable<Item> ConsolidateStockUsingJoin(List<Item> stock1, List<Item> stock2)
         {
             var consolidatedItems = from s1 in stock1
                                     join s2 in stock2
@@ -39,7 +41,7 @@ namespace LinQ_Peformance
             return consolidatedItems;
         }
 
-        public IEnumerable<Item> ConsolidateStockUsingDictionary(List<Item> stock1, List<Item> stock2)
+        public static IEnumerable<Item> ConsolidateStockUsingDictionary(List<Item> stock1, List<Item> stock2)
         {
             var stock2Dict = stock2.ToDictionary(x => x.Sku, x => x.Quantity);
 
@@ -54,7 +56,7 @@ namespace LinQ_Peformance
             }
         }
 
-        private void Test_ConsolidateStockUsingJoin()
+        private static void Test_ConsolidateStockUsingJoin()
         {
             var stock1 = GetItemsStock().ToList();
             var stock2 = GetItemsStock().ToList();
@@ -65,10 +67,10 @@ namespace LinQ_Peformance
             watch.Stop();
 
             Console.WriteLine($"time eplased - ConsolidateStockUsingJoin - {watch.Elapsed}");
-
+            //Console.ReadLine();
         }
 
-        private void Test_ConsolidateStockUsingDictionary()
+        private static void Test_ConsolidateStockUsingDictionary()
         {
             var stock1 = GetItemsStock().ToList();
             var stock2 = GetItemsStock().ToList();
@@ -79,7 +81,7 @@ namespace LinQ_Peformance
             watch.Stop();
 
             Console.WriteLine($"time eplased - ConsolidateItemsUsingDictionary - {watch.Elapsed}");
-
+            Console.ReadLine();
         }
 
     }
